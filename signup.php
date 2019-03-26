@@ -35,9 +35,8 @@ if(isset($_POST['signup-btn'])) {
 
       while($row = mysqli_fetch_array($result)){ 
 
-        if($row["username"] === $username  ) {
+        if($row["username"] === $username){
           $errors["username_taken_err"] = "Username already taken!";
-          echo $row["username"];
         }
         if($row["email"] == $email){
           $errors["email_taken_err"] = "Email already exists!";
@@ -63,6 +62,7 @@ if(isset($_POST['signup-btn'])) {
     $success = "User created successfully !";
     //close the database connection
     mysqli_close($connection);
+
 
   } 
 }

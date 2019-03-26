@@ -15,8 +15,20 @@
 <body>
         <header>
             <nav>
-              <a href="login.php">login</a>
-              <a href="signup.php">Signup</a>
+
+            <?php 
+              
+             if( isset($_SESSION["myname"])) {
+              echo "<a href='logout.php'>logout</a>";
+              
+             } else {
+              echo '<a href="login.php">login</a>
+              <a href="signup.php">Signup</a>';
+             }
+            
+            
+            ?>
+             
             </nav>
             
         </header>

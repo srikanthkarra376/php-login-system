@@ -8,7 +8,5 @@
 
   if(!$connection) {
     echo "connection error".mysqli_error();
-  } else {
-   
-  }
+  } 
 
