@@ -1,7 +1,7 @@
 <?php 
 
 if(isset($_POST['signup-btn'])) {
-
+ //include the db conection
   include 'includes/db.config.php';
 
   $username = mysqli_real_escape_string($connection, $_POST["uid"]);
@@ -10,7 +10,7 @@ if(isset($_POST['signup-btn'])) {
   $password_confirm = mysqli_real_escape_string($connection, $_POST["pwd-confirm"]);
 
   $errors = array();
-
+//check the empty values 
   if(empty($username)) {
       $errors["username_err"] = "*Username cant be empty!";
 
@@ -27,7 +27,7 @@ if(isset($_POST['signup-btn'])) {
     
     $errors["passwords_match_err"] = "*Please ensure passwords are matched !";
   } 
-
+ //query database to check for existing users 
   $stmt = "SELECT username, email FROM users";
 
   if($result = mysqli_query($connection, $stmt)) {
@@ -41,50 +41,39 @@ if(isset($_POST['signup-btn'])) {
         }
         if($row["email"] == $email){
           $errors["email_taken_err"] = "Email already exists!";
-          echo $row["email"];
-        
-        
         }
 
      }
-
     
-  }
+    }
 }
+//check the erros array length then save user into database 
 
   if(count($errors)==0){
-
+    // hash the password
     $hashedpwd = password_hash($password, PASSWORD_DEFAULT) ;
+    //prepare the mysqli statements 
     $stmt1 = mysqli_prepare($connection, "INSERT INTO users(username,email,password) VALUES (?, ?, ?)");
+    //bind the variables with function
     mysqli_stmt_bind_param($stmt1, 'sss', $username, $email, $hashedpwd);
+    //execute the statement 
     mysqli_stmt_execute($stmt1);
+    //close the statement 
     mysqli_stmt_close($stmt1);
     $success = "User created successfully !";
+    //close the database connection
     mysqli_close($connection);
+
   } 
- 
-  
-  
-
- 
-  }
-
-    
-
-  
-
-
+}
 
 ?>
-
-
 <div class="container col-md-6">
 
 <?php require './includes/header.php';?>
 <h1>Signup </h1>
 <p class="text-success" ><?php if(isset($success)) echo $success;?></p>
 
- 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 <div class="form-group">
 <input class="form-control" type="text" name="uid" placeholder="Username" value=<?php if(isset($username)) echo $username;?> >
