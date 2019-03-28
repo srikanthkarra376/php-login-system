@@ -1,10 +1,17 @@
 <?php 
+
 session_start();
-require './includes/header.php';
+
+if(isset($_SESSION["myname"])) {
+
+  echo "<p><a class='nav-link' href='logout.php'>Logout</a>
+       <p>welcome ".$_SESSION['myname']."</p>";
+       
+} else {
+   header("Location:login.php?redirect=you need to be login first");
+}
+
 ?>
 
-
-<h2 class= "text-success">Welcome to the IAM SYSTEM <?php if(isset($_SESSION["myname"]))  echo $_SESSION["myname"];?>  </h1>
- 
 <?php require './includes/footer.php';?>
  

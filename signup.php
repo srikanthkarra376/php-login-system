@@ -68,10 +68,12 @@ if(isset($_POST['signup-btn'])) {
 }
 
 ?>
-<div class="container col-md-6">
+<div class="container col-md-4 bg-light">
 
 <?php require './includes/header.php';?>
-<h1>Signup </h1>
+<hr>
+<h1 class="text-muted text-center">Signup </h1>
+
 <p class="text-success" ><?php if(isset($success)) echo $success;?></p>
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
@@ -108,9 +110,9 @@ if(isset($_POST['signup-btn'])) {
        <?php if(isset($errors["passwords_match_err"]))  echo $errors["passwords_match_err"];?>
      </small>
   </div>
- 
-  <p><button class="btn btn-primary" type="submit" name="signup-btn">signup</button></p>
-
+  <div class="form-group">
+    <button class="btn btn-primary btn-lg btn-block" type="submit" name="signup-btn">signup</button>
+  </div>
 </form>
 <?php require './includes/footer.php';?>
 </div>

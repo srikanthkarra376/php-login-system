@@ -1,7 +1,9 @@
 <?php 
 //start the session in all pages 
 session_start();
-//check if the form is submited 
+//check if the form is submited
+
+
 if(isset($_POST["login-btn"])){
   //include the db credentials 
   include 'includes/db.config.php';
@@ -55,10 +57,16 @@ if(isset($_POST["login-btn"])){
 
 }
 ?>
-<div class="container col-md-6">
+<div class="container col-md-4 bg-light">
 
 <?php require './includes/header.php';?>
-<h1>login </h1>
+<hr>
+<small  class="text-warning">
+<?php if(isset($_GET["redirect"])) echo '*'.$_GET["redirect"] ?>
+</small> 
+<h1 class="text-center text-muted">login </h1>
+
+
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
   <div class="form-group">
@@ -67,7 +75,7 @@ if(isset($_POST["login-btn"])){
     <small  class="form-text text-danger">
        <?php if(isset( $login_errors["login_uname_err"])) echo  $login_errors["login_uname_err"]; ?> 
     </small> 
-    <small  class="form-text text-danger">
+      <small class="form-text text-warning">
        <?php if(isset( $db_check_username_err)) echo  $db_check_username_err; ?> 
     </small>
   </div>
@@ -75,14 +83,16 @@ if(isset($_POST["login-btn"])){
    <div class="form-group">
    <input type="password"  class= "form-control" name="login-pwd" placeholder="password" >  
    <small  class="form-text text-danger">
-   <?php if(isset( $login_errors["login_pwd_err"])) echo $login_errors["login_pwd_err"]; ?> 
+   <?php if(isset($login_errors["login_pwd_err"])) echo $login_errors["login_pwd_err"]; ?> 
     </small> 
-    <small  class="form-text text-danger">
-       <?php if(isset(   $db_check_password_err)) echo   $db_check_password_err; ?> 
+    <small  class="form-text text-warning">
+       <?php if(isset($db_check_password_err)) echo   $db_check_password_err; ?> 
     </small> 
   
    </div>
-     <button class="btn btn-success" type="submit" name="login-btn">login</button>
+   <div class="text-center">
+     <button class="btn btn-success btn-lg btn-block" type="submit" name="login-btn">login</button>
+  </div>
 
 </form>
 
